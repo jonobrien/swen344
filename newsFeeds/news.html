@@ -1,0 +1,230 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <title>News Project</title>
+    <meta name="description" content="">
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <meta name="mobile-web-app-capable" content="yes">
+	<!-- pirate cat win -->
+	<link rel="icon" type="image/gif" href="http://i.giphy.com/3oEduVGyuRGuZXaqys.gif">
+	
+    <!-- https://cdnjs.com/libraries/semantic-ui -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/components/form.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css" rel="stylesheet" type="text/css">
+
+	
+	
+	<!-- rss feed basics -->
+	<!-- google feeds script source:  http://www.developerdrive.com/2012/03/a-simple-way-to-add-free-news-content-to-your-website/-->
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	<script type="text/javascript" src="login.js"></script>
+    <script type="text/javascript">
+
+		// remove the posts before adding new ones 
+		// for each different rss feed click
+		function clean() {
+			var list = document.getElementById("feedBase");
+			var MAX_ELEMENTS = 3; // base menu has 5 items
+			while (MAX_ELEMENTS < list.childNodes.length) {
+				list.removeChild(list.childNodes[MAX_ELEMENTS]);
+			}
+		}
+	
+		// load the feeds
+		google.load("feeds", "1");
+		function initialize(urlString) {
+		  var feed = new google.feeds.Feed(urlString);
+		  feed.setNumEntries(20); // get X entries TODO -- dynamically get more....
+		  feed.load(function(result) {
+			if (!result.error) {
+			  var container = document.getElementById("feed");
+			  //$('#feed').empty(); // clear content on new feed selection
+			  clean()
+			  for (var i = 0; i < result.feed.entries.length; i++) {
+				var entry = result.feed.entries[i];
+				var entryStr = '<div class="ui segment attached"><div class="basic ui item icon"><a target="blank" href="'
+					+ entry.link + '"><i class="linkify icon"></i></a>&nbsp;&nbsp;' + entry.title + '</div></div>';
+				console.log(entryStr);
+				var div = $(entryStr);
+				//div.appendChild(document.createTextNode(entry.title));
+				$('#feedBase').append(div);
+			  }
+			}
+		  });
+		}
+		google.setOnLoadCallback(initialize);
+	</script>
+
+	
+	
+	
+</head>
+<body>
+
+    <main class="ui page grid">
+	
+        <div class="row">
+            <div class="center aligned starter column">
+                <h1 class="ui header">RSS Feed here</h1>
+                <p>Need to have login for last login time/date cookie and favorited posts</p>
+				<p>Need to have multiple rss feeds, see slack for help</p>
+				<p>Semantic to make it reactive</p>
+            </div>
+		</div>
+		
+		<div class="row" id="feedBase">
+			<div class="stackable ui secondary pointing menu segment attached top">
+			  <a class="blue item" onclick=initialize("http://rss.weather.com/rss/national/rss_nwf_rss.xml?cm_ven=NWF&cm_cat=rss&par=NWF_rss")>
+				<i class="cloud icon"></i>WEATHER
+			  </a>
+			  <a class="green item" onclick=initialize("http://feeds.bbci.co.uk/news/system/latest_published_content/rss.xml")>
+				<i class="user icon"></i>BBC
+			  </a>
+			  <a class="red item" onclick=initialize("http://espn.go.com/espn/rss/news")>
+				<i class="flag icon"></i>ESPN
+			  </a>
+			  <script type="text/javascript">
+				<!--
+					lastVisit()
+				//-->
+			</script>
+			  <a class="black item attached right">
+				  Logout
+			  </a>
+			</div>
+			  
+			</div>
+			
+		
+		<div class="row">
+			<div class="ui icon input">
+				<input type="text" placeholder="Search...">
+				<i class="inverted circular search link icon"></i>
+			</div>
+			<!--ajax gets json from this-->
+			<div class="ui button" id="ajaxConfirm">login</div>
+		</div>
+		
+		
+		
+		
+		
+		<!--login-->
+		<div class="container">
+			<form class="ui form segment fluid" id="loginForm" method="POST">
+			  <div class="field">
+				<input name="uname" type="text" placeholder="username">
+			  </div>
+			  <div class="field">
+				<input name="pass" type="text" placeholder="password">
+			  </div>
+			  <div id="login" class="ui submit button">Submit</div>
+			  <div class="ui error message"></div>
+			</form>
+		</div>
+
+
+
+    </main>
+	
+	
+	
+	
+	
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.js"></script>
+	<script src ="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/components/form.min.js"></script>
+</body>
+</html>
+
+<script type="text/javascript">
+
+$("#ajaxConfirm").click(function() {
+   $.ajax({
+      url: "login.php",
+      
+      data: {
+         format: "jsonp"
+      },
+      error: function(e) {
+         console.log("error !!");
+		 console.log(e);
+      },
+      success: function(data) {
+         console.log(data);
+      },
+      type: "POST"
+   });
+});
+
+
+// menu update
+$(document).ready(function(){
+    $('.ui .item').on('click', function() {
+        $('.ui .item').removeClass('active');
+        $(this).addClass('active');
+    });             
+});
+
+
+
+// login form and validation, send/retrieve from backend
+$("document").ready(function(){
+
+$("#loginForm")
+  .form({
+    on: "blur",
+    fields: {
+      uname: {
+        identifier  : "uname",
+        rules: [
+          {
+            type   : "empty",
+            prompt : "username cannot be empty"
+          }
+        ]
+      },
+	  pass: {
+        identifier  : "pass",
+        rules: [
+          {
+            type   : "empty",
+            prompt : "password cannot be empty"
+          }
+        ]
+      }
+    },
+	onSuccess: function() {
+	alert("form valid");
+	},
+	onError: function() {
+	console.log("for post error");
+	}
+  })
+;
+});
+
+
+
+</script>
+
+
+
+<!-- Paste this code into an external JavaScript file named: lastVisit.js  -->
+
+
+
+
+<!-- Paste this code into the HEAD section of your HTML document.
+     You may need to change the path of the file.  -->
+
+
+
+
+<!-- Paste this code into the BODY section of your HTML document  -->
+
+
+
+
