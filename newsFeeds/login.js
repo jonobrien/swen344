@@ -1,7 +1,7 @@
+// modified from src: http://www.javascriptsource.com/time-date/date-and-time-of-last-visit.html
 
-/* This script and many more are available free online at
-The JavaScript Source :: http://www.javascriptsource.com
-Created by: Patrick Clinger :: http://www.freewebs.com/google_game/ */
+
+
 
 function lastVisit() {
   var lastvisit=new Object()
@@ -30,4 +30,3 @@ function lastVisit() {
   }
   lastvisit.showmessage()
 }
-
