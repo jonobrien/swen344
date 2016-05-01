@@ -10,7 +10,7 @@ function lastVisit() {
 	}
   var lastvisit=new Object()
   lastvisit.firstvisitmsg=" This is your first visit to this page. Welcome " + nme //Change first visit message here
-  lastvisit.subsequentvisitmsg= "Welcome back " + nme + "! Your last refresh was on <b>[displaydate]</b> " // Change subsequent visit message here
+  lastvisit.subsequentvisitmsg= "Welcome back " + nme + "! Your last login/refresh was on <b>[displaydate]</b> " // Change subsequent visit message here
 
   lastvisit.getCookie=function(Name) { // get cookie value
     var re=new RegExp(Name+"=[^;]+", "i"); // construct RE to search for target name/value pair
