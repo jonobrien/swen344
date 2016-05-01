@@ -1,0 +1,28 @@
+
+body{background:#fff;font-family:verdana,sans-serif;padding:5px;margin:0;}
+h1{width:270px;font-size:14px;margin-left:auto;margin-right:auto;margin-bottom:20px;}
+h2{width:113px;height:16px;padding:0;margin:0;margin-bottom:3px;cursor:default;margin-left:10px;background:url(g/bbclogo.gif) no-repeat;}
+h2 span{display:none;}
+p{padding:0;margin:0;color:#fff;cursor:default;}
+small{font-size:10px;}
+a,select{cursor:pointer;}
+#Shadow{position:relative;top:10px;left:10px;width:272px;background:url(g/dropshad.gif) bottom right no-repeat;margin-left:auto;margin-right:auto;}
+#Wrapper{width:270px;background:#900;padding-top:10px;padding-bottom:14px;border-top:1px solid #f99;border-left:1px solid #f99;border-bottom:1px solid #300;border-right:1px solid #300;position:relative;top:-10px;left:-10px;}
+#whichFeed,#feedDate{margin-left:10px;width:250px;line-height:10px;}
+#whichFeed a{color:#fff;text-decoration:none;}
+#feedDate{padding-bottom:10px;padding-top:2px;}
+#outdetails{width:250px;height:140px;background:url(g/bbcback.gif) no-repeat #900;padding:0;margin:0;margin-left:10px;}
+#details{padding:10px;}
+#details h3{font-weight:bold;font-size:18px;padding:0;margin:0;margin-bottom:11px;}
+#details a{color:#fff;text-decoration:none;}
+#details p{font-size:11px;line-height:16px;padding:0;margin:0;color:#dcc;}
+#catp{margin-top:5px;margin-left:10px;width:250px;}
+#categs{width:250px;background:#dcc;color:#000;font-family:verdana,sans-serif;font-size:11px;}
+#categs option{padding-bottom:2px;}
+p#LoadMsg{text-align:center;margin-top:33px;font-size:12px;}
+#Footer{width:250px;line-height:11px;margin-top:5px;color:#fff;margin-left:10px;}
+#Footer small{font-size:10px;}
+#Footer a{color:#fff;text-decoration:none;border-bottom:1px solid #966}
+#Footer a:hover{border-bottom:1px solid #fff}
+#mailLink{width:270px;margin-right:auto;margin-left:auto;padding-top:30px;font-size:10px;color:#000;}
+

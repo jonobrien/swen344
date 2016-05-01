@@ -17,9 +17,6 @@
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 	<script type="text/javascript" src="login.js"></script>
 	<script type="text/javascript" src="rssFeed.js"></script>
-
-
-
 </head>
 <body>
 
@@ -36,13 +33,13 @@
 		
 		<div class="row" id="feedBase">
 			<div class="stackable ui secondary pointing menu segment attached top">
-			  <a class="blue item" onclick=initialize("http://rss.weather.com/rss/national/rss_nwf_rss.xml?cm_ven=NWF&cm_cat=rss&par=NWF_rss")>
+			  <a id="weatherRSS" class="blue item" onclick=initialize("http://rss.weather.com/rss/national/rss_nwf_rss.xml?cm_ven=NWF&cm_cat=rss&par=NWF_rss")>
 				<i class="cloud icon"></i>WEATHER
 			  </a>
-			  <a class="green item" onclick=initialize("http://feeds.bbci.co.uk/news/system/latest_published_content/rss.xml")>
+			  <a id="bbcRSS" class="green item" onclick=initialize("http://feeds.bbci.co.uk/news/system/latest_published_content/rss.xml")>
 				<i class="user icon"></i>BBC
 			  </a>
-			  <a class="red item" onclick=initialize("http://espn.go.com/espn/rss/news")>
+			  <a id="espnRSS" class="red item" onclick=initialize("http://espn.go.com/espn/rss/news")>
 				<i class="flag icon"></i>ESPN
 			  </a>
 			  <script type="text/javascript">
@@ -86,7 +83,6 @@
 		</div>
 
 
-
     </main>
 	
 	
@@ -128,42 +124,54 @@ $(document).ready(function(){
     });             
 });
 
+// require login
+$(document).ready(function(){
+	$('#weatherRSS, #bbcRSS, #espnRSS').on('click', function() {
+		// not logged in
+		if (localStorage.getItem('loggedIn') === undefined ) {
+			console.log('login check on menu');
+			// call login dropdown to allow logging in
+		}
+		else {console.log('else');} // logged in
+		});
+});
 
 
 // login form and validation, send/retrieve from backend
 $("document").ready(function(){
 
-$("#loginForm")
-  .form({
-    on: "blur",
-    fields: {
-      uname: {
-        identifier  : "uname",
-        rules: [
-          {
-            type   : "empty",
-            prompt : "username cannot be empty"
-          }
-        ]
-      },
-	  pass: {
-        identifier  : "pass",
-        rules: [
-          {
-            type   : "empty",
-            prompt : "password cannot be empty"
-          }
-        ]
-      }
-    },
-	onSuccess: function() {
-	alert("form valid");
-	},
-	onError: function() {
-	console.log("for post error");
-	}
-  })
-;
+	$("#loginForm")
+	  .form({
+		on: "blur",
+		fields: {
+		  uname: {
+			identifier  : "uname",
+			rules: [
+			  {
+				type   : "empty",
+				prompt : "username cannot be empty"
+			  }
+			]
+		  },
+		  pass: {
+			identifier  : "pass",
+			rules: [
+			  {
+				type   : "empty",
+				prompt : "password cannot be empty"
+			  }
+			]
+		  }
+		},
+		onSuccess: function(event) {
+			var name = $('#loginForm').form('get value', 'uname');
+			var password = $('#loginForm').form('get value', 'pass');
+			login(name,password);
+		},
+		onError: function() {
+			console.log("for post error");
+		}
+    });
 });
 
 

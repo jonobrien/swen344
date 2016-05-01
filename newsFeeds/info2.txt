@@ -1,0 +1,19 @@
+{
+    "users": {
+        "jon": {
+            "pw":"plaintext",
+			"favorites":[
+				{"cat":"thelinkhere",
+				"dog":"secondfavoritedInfoHere"
+				}
+			]
+        },
+        "krutz": {
+            "pw":"password",
+            "age":56,
+            "count":10,
+            "progress":0.0029857,
+            "bad":0
+        }
+    }
+}

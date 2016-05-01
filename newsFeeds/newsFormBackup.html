@@ -1,0 +1,150 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <title>News Project</title>
+    <meta name="description" content="">
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- build:css styles/vendor.css -->
+    <!-- bower:css -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700,300&subset=latin,vietnamese" rel="stylesheet" type="text/css">
+    <!-- endbower -->
+    <!-- https://cdnjs.com/libraries/semantic-ui -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/components/form.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css" rel="stylesheet" type="text/css">
+
+    <!-- build:css styles/main.css -->
+    <!--link rel="stylesheet" href="main.css"-->
+    <!-- endbuild -->
+</head>
+<body>
+
+    <main class="ui page grid">
+        <div class="row">
+            <div class="center aligned starter column">
+                <h1 class="ui header">RSS Feed here</h1>
+                <p>Need to have login for last login time/date cookie and favorited posts</p>
+				<p>Need to have multiple rss feeds, see slack for help</p>
+				<p>Semantic to make it reactive</p>
+            </div>
+        </div>
+		<div class="row">
+			<div class="ui icon input">
+				<input type="text" placeholder="Search...">
+				<i class="inverted circular search link icon"></i>
+			</div>
+			<!--ajax gets json from this-->
+			<button id="ajaxConfirm">login</button>
+		</div>
+		
+		
+		
+		
+		
+		<!--login-->
+		<form class="ui form" id="loginForm">
+		  <div class="field">
+			<input name="uname" type="text" placeholder="username">
+		  </div>
+		  <div class="field">
+			<label>Dropdown</label>
+			<select class="ui dropdown" name="dropdown">
+			  <option value="">Select</option>
+			  <option value="male">Choice 1</option>
+			  <option value="female">Choice 2</option>
+			</select>
+		  </div>
+		  <div class="inline field">
+			<div class="ui checkbox">
+			  <input type="checkbox" name="checkbox">
+			  <label>Checkbox</label>
+			</div>
+		  </div>
+		  <div id="login" class="ui submit button">Submit</div>
+		  <div class="ui error message"></div>
+		</form>
+
+
+
+    </main>
+	
+	
+	
+	
+	
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.js"></script>
+	<script src ="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/components/form.min.js"></script>
+</body>
+</html>
+
+<script type="text/javascript">
+
+$("#ajaxConfirm").click(function() {
+   $.ajax({
+      url: "login.php",
+      
+      data: {
+         format: "jsonp"
+      },
+      error: function(e) {
+         console.log("error !!");
+		 console.log(e);
+      },
+      success: function(data) {
+         console.log(data);
+      },
+      type: "POST"
+   });
+});
+
+$("document").ready(function(){
+
+$("#loginForm")
+  .form({
+    on: "blur",
+    fields: {
+      uname: {
+        identifier  : "uname",
+        rules: [
+          {
+            type   : "empty",
+            prompt : "Please enter a value for username"
+          }
+        ]
+      },
+      dropdown: {
+        identifier  : "dropdown",
+        rules: [
+          {
+            type   : "empty",
+            prompt : "Please select a dropdown value"
+          }
+        ]
+      },
+      checkbox: {
+        identifier  : "checkbox",
+        rules: [
+          {
+            type   : "checked",
+            prompt : "Please check the checkbox"
+          }
+        ]
+      }
+    },
+	onSuccess: function() {
+	alert("valid");
+	},
+	onError: function() {
+	alert("error");
+	}
+  })
+;
+});
+
+
+
+</script>
