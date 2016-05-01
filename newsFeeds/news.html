@@ -22,13 +22,13 @@
 
     <main class="ui page grid">
 
-        <div class="row">
+        <!--div class="row">
             <div class="center aligned starter column">
                 <h1 class="ui header">RSS Feed here</h1>
                 <p>login to see posts and favorites</p>
 				<p>put form in dropdown under login button</p>
             </div>
-		</div>
+		</div-->
 		
 		<div class="row" id="feedBase">
 			<div class="stackable ui secondary pointing menu segment attached top">
@@ -117,12 +117,12 @@ $(document).ready(function(){
     });
 });
 
-//// call for logged in cookie on successful login
-//$(document).ready(function(){
-//	if (typeof(localStorage.getItem("currentUser")) === "string") {
-//		lastVisit();
-//	}
-//});
+// call for logged in cookie on successful login
+$(document).ready(function(){
+	if (typeof(localStorage.getItem("currentUser")) === "string") {
+		lastVisit();
+	}
+});
 
 
 // replace login with logout and allow logging out
