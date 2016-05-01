@@ -21,13 +21,12 @@
 <body>
 
     <main class="ui page grid">
-	
+
         <div class="row">
             <div class="center aligned starter column">
                 <h1 class="ui header">RSS Feed here</h1>
-                <p>Need to have login for last login time/date cookie and favorited posts</p>
-				<p>Need to have multiple rss feeds, see slack for help</p>
-				<p>Semantic to make it reactive</p>
+                <p>login to see posts and favorites</p>
+				<p>put form in dropdown under login button</p>
             </div>
 		</div>
 		
@@ -42,28 +41,46 @@
 			  <a id="espnRSS" class="red item" onclick=loginCheck('espn')>
 				<i class="flag icon"></i>ESPN
 			  </a>
-			  <div id="loggedInLast"></div>
+			  <div class ="disabled item middle aligned content" id="loggedInLast">please login</div>
 			  <a class="black item attached right">
-				  Logout
+				  Login
 			  </a>
 			</div>
-			  
-			</div>
+		</div>
 			
-		
+<!-- useless since html5 local storage
 		<div class="row">
 			<div class="ui icon input">
 				<input type="text" placeholder="Search...">
 				<i class="inverted circular search link icon"></i>
 			</div>
+-->
 			<!--ajax gets json from this-->
+<!--
 			<div class="ui button" id="ajaxConfirm">login</div>
 		</div>
+		<script type="text/javascript">
+			$("#ajaxConfirm").click(function() {
+			   $.ajax({
+				  url: "login.php",
+				  
+				  data: {
+					 format: "jsonp"
+				  },
+				  error: function(e) {
+					 console.log("error !!");
+					 console.log(e);
+				  },
+				  success: function(data) {
+					 console.log(data);
+				  },
+				  type: "POST"
+			   });
+			});
+		</script>
+-->
 		
-		
-		
-		
-		
+
 		<!--login-->
 		<div class="container">
 			<form class="ui form segment fluid" id="loginForm" method="POST">
@@ -80,11 +97,7 @@
 
 
     </main>
-	
-	
-	
-	
-	
+
     <!-- put semantic js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.js"></script>
 	<script src ="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/components/form.min.js"></script>
@@ -93,23 +106,6 @@
 
 <script type="text/javascript">
 
-$("#ajaxConfirm").click(function() {
-   $.ajax({
-      url: "login.php",
-      
-      data: {
-         format: "jsonp"
-      },
-      error: function(e) {
-         console.log("error !!");
-		 console.log(e);
-      },
-      success: function(data) {
-         console.log(data);
-      },
-      type: "POST"
-   });
-});
 
 
 // menu update
@@ -120,7 +116,7 @@ $(document).ready(function(){
     });
 });
 
-// require login
+// replace login with logout and allow logging out
 $(document).ready(function(){
 	
 });
@@ -152,7 +148,7 @@ $("document").ready(function(){
 			]
 		  }
 		},
-		onSuccess: function(event) {
+		onSuccess: function() {
 			var name = $('#loginForm').form('get value', 'uname');
 			var password = $('#loginForm').form('get value', 'pass');
 			login(name,password);

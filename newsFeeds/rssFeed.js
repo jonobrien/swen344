@@ -7,6 +7,10 @@
 				list.removeChild(list.childNodes[MAX_ELEMENTS]);
 			}
 		}
+		
+		function getFavorites() {
+			var user = localStorage.getItem('currentUser');
+		}
 	
 		// load the feeds
 		google.load("feeds", "1");

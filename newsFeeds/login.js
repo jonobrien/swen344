@@ -33,6 +33,20 @@ function lastVisit() {
 
 function login(name, pw) {
 	// if returning user
+	var storedUserInfo = localStorage.getItem('users');
+	if (storedUserInfo === null ) {
+		console.log('null stored info');
+		var newUserStr = "{" + name + ": {" + pw + "," + "{} } }"
+		console.log(JSON.stringify(newUserStr));
+		//localStorage.setItem('users', newUserStr)
+		localStorage.setItem('currentUser', name);
+		console.log(JSON.parse(JSON.stringify(newUserStr)));
+	}
+	else {
+		console.log('else if');
+		console.log(JSON.parse(storedUserInfo));
+	
+	}
 	// last visit
 	console.log(name);
 	console.log(pw);
@@ -44,9 +58,8 @@ function loginCheck (divID) {
 	console.log(divID);
 	$('#weatherRSS, #bbcRSS, #espnRSS').on('click', function() {
 		// not logged in
-		if (localStorage.getItem('loggedIn') === undefined ) {
-			console.log('login check on menu');
-			
+		if (localStorage.getItem('currentUser') === null ) {
+			//console.log('login check on menu'); //TODO -- find out why this is being called 3+ times per click
 			// call login dropdown to allow logging in
 		}
 		else { // logged in
@@ -61,7 +74,7 @@ function loginCheck (divID) {
 				getRSS("http://espn.go.com/espn/rss/news");
 			}
 			console.log('innerhtml');
-			lastVisit()
+			lastVisit();
 		}
 		});
 	};
