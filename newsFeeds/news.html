@@ -41,7 +41,7 @@
 			  <a class="rss red item" onclick=loginCheck('espn')>
 				<i class="flag icon"></i>ESPN
 			  </a>
-			  <div class ="disabled item middle aligned content" id="loggedInLast">please login</div>
+			  <div class ="disabled item middle aligned content" id="loggedInLast">please login or select a feed</div>
 			  <a id="logButton" class="black item attached right" onclick=logOut()>
 				  Log Out
 			  </a>
@@ -117,12 +117,12 @@ $(document).ready(function(){
     });
 });
 
-// call for logged in cookie on successful login
-$(document).ready(function(){
-	if (typeof(localStorage.getItem("currentUser")) === "string") {
-		lastVisit();
-	}
-});
+//// call for logged in cookie on successful login
+//$(document).ready(function(){
+//	if (typeof(localStorage.getItem("currentUser")) === "string") {
+//		lastVisit();
+//	}
+//});
 
 
 // replace login with logout and allow logging out
@@ -136,7 +136,7 @@ function logOut() {
 			document.getElementById('loggedInLast').innerHTML=('you have logged out');
 	}
 	else {
-		document.getElementById('loggedInLast').innerHTML=('you must login to be able to log out');
+		document.getElementById('loggedInLast').innerHTML=('you are not logged in');
 
 	}
 };

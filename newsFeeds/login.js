@@ -4,9 +4,13 @@ The JavaScript Source :: http://www.javascriptsource.com
 Created by: Patrick Clinger :: http://www.freewebs.com/google_game/ */
 
 function lastVisit() {
+  var nme = 'User'
+  if (typeof(localStorage.getItem("currentUser")) === "string") {
+		nme = localStorage.getItem('currentUser');
+	}
   var lastvisit=new Object()
-  lastvisit.firstvisitmsg=" This is your first visit to this page. Welcome!" //Change first visit message here
-  lastvisit.subsequentvisitmsg= "Welcome back visitor! Your last visit was on <b>[displaydate]</b> " // Change subsequent visit message here
+  lastvisit.firstvisitmsg=" This is your first visit to this page. Welcome " + nme //Change first visit message here
+  lastvisit.subsequentvisitmsg= "Welcome back " + nme + "! Your last visit was on <b>[displaydate]</b> " // Change subsequent visit message here
 
   lastvisit.getCookie=function(Name) { // get cookie value
     var re=new RegExp(Name+"=[^;]+", "i"); // construct RE to search for target name/value pair
@@ -61,7 +65,7 @@ function loginCheck (divID) {
 	$('.rss').one('click', function() { // BUG -- this check makes the function get called n+1 times per click
 		// not logged in
 		if (localStorage.getItem('currentUser') === null ) {
-			document.getElementById('loggedInLast').innerHTML=('you must login to be able to view feeds');
+			document.getElementById('loggedInLast').innerHTML=('you must login view feeds');
 		}
 		else { // logged in
 			lastVisit();
