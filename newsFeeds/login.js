@@ -24,9 +24,9 @@ function lastVisit() {
   lastvisit.showmessage=function() {
   if (lastvisit.getCookie("visitcounter")=="") { // if first visit
     lastvisit.setCookie("visitcounter", 2, 730) // set "visitcounter" to 2 and for 730 days (2 years)
-    document.write(lastvisit.firstvisitmsg)
+    document.getElementById('loggedInLast').innerHTML=(lastvisit.firstvisitmsg)
   } else
-    document.write(lastvisit.subsequentvisitmsg.replace("\[displaydate\]", new Date().toLocaleString()))
+    document.getElementById('loggedInLast').innerHTML=(lastvisit.subsequentvisitmsg.replace("\[displaydate\]", new Date().toLocaleString()))
   }
   lastvisit.showmessage()
 }
@@ -38,4 +38,31 @@ function login(name, pw) {
 	console.log(pw);
 	
 }
+
+
+function loginCheck (divID) {
+	console.log(divID);
+	$('#weatherRSS, #bbcRSS, #espnRSS').on('click', function() {
+		// not logged in
+		if (localStorage.getItem('loggedIn') === undefined ) {
+			console.log('login check on menu');
+			
+			// call login dropdown to allow logging in
+		}
+		else { // logged in
+			console.log('else')
+			if (divID == 'weather' ) {
+				getRSS("http://rss.weather.com/rss/national/rss_nwf_rss.xml?cm_ven=NWF&cm_cat=rss&par=NWF_rss");
+			}
+			else if (divID == 'bbc') {
+				getRSS("http://feeds.bbci.co.uk/news/system/latest_published_content/rss.xml");
+			}
+			else if (divID == 'espn' ) {
+				getRSS("http://espn.go.com/espn/rss/news");
+			}
+			console.log('innerhtml');
+			lastVisit()
+		}
+		});
+	};
 

@@ -33,20 +33,16 @@
 		
 		<div class="row" id="feedBase">
 			<div class="stackable ui secondary pointing menu segment attached top">
-			  <a id="weatherRSS" class="blue item" onclick=initialize("http://rss.weather.com/rss/national/rss_nwf_rss.xml?cm_ven=NWF&cm_cat=rss&par=NWF_rss")>
+			  <a id="weatherRSS" class="blue item" onclick=loginCheck('weather')>
 				<i class="cloud icon"></i>WEATHER
 			  </a>
-			  <a id="bbcRSS" class="green item" onclick=initialize("http://feeds.bbci.co.uk/news/system/latest_published_content/rss.xml")>
+			  <a id="bbcRSS" class="green item" onclick=loginCheck('bbc')>
 				<i class="user icon"></i>BBC
 			  </a>
-			  <a id="espnRSS" class="red item" onclick=initialize("http://espn.go.com/espn/rss/news")>
+			  <a id="espnRSS" class="red item" onclick=loginCheck('espn')>
 				<i class="flag icon"></i>ESPN
 			  </a>
-			  <script type="text/javascript">
-				<!--
-					lastVisit()
-				//-->
-			</script>
+			  <div id="loggedInLast"></div>
 			  <a class="black item attached right">
 				  Logout
 			  </a>
@@ -121,19 +117,12 @@ $(document).ready(function(){
     $('.ui .item').on('click', function() {
         $('.ui .item').removeClass('active');
         $(this).addClass('active');
-    });             
+    });
 });
 
 // require login
 $(document).ready(function(){
-	$('#weatherRSS, #bbcRSS, #espnRSS').on('click', function() {
-		// not logged in
-		if (localStorage.getItem('loggedIn') === undefined ) {
-			console.log('login check on menu');
-			// call login dropdown to allow logging in
-		}
-		else {console.log('else');} // logged in
-		});
+	
 });
 
 

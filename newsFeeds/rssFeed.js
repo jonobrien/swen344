@@ -10,7 +10,7 @@
 	
 		// load the feeds
 		google.load("feeds", "1");
-		function initialize(urlString) {
+		function getRSS(urlString) {
 		  var feed = new google.feeds.Feed(urlString);
 		  feed.setNumEntries(20); // get X entries TODO -- dynamically get more....
 		  feed.load(function(result) {
@@ -22,7 +22,7 @@
 				var entry = result.feed.entries[i];
 				var entryStr = '<div class="ui segment attached"><div class="basic ui item icon"><a target="blank" href="'
 					+ entry.link + '"><i class="linkify icon"></i></a>&nbsp;&nbsp;' + entry.title + '</div></div>';
-				console.log(entryStr);
+				//console.log(entryStr);
 				var div = $(entryStr);
 				//div.appendChild(document.createTextNode(entry.title));
 				$('#feedBase').append(div);
@@ -30,4 +30,4 @@
 			}
 		  });
 		}
-		google.setOnLoadCallback(initialize);
+		google.setOnLoadCallback(getRSS);
