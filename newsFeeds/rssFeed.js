@@ -15,6 +15,7 @@
 		// load the feeds
 		google.load("feeds", "1");
 		function getRSS(urlString) {
+		  clean()
 		  var feed = new google.feeds.Feed(urlString);
 		  feed.setNumEntries(20); // get X entries TODO -- dynamically get more....
 		  feed.load(function(result) {

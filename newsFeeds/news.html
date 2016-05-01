@@ -32,18 +32,18 @@
 		
 		<div class="row" id="feedBase">
 			<div class="stackable ui secondary pointing menu segment attached top">
-			  <a id="weatherRSS" class="blue item" onclick=loginCheck('weather')>
+			  <a class="rss blue item" onclick=loginCheck('weather')>
 				<i class="cloud icon"></i>WEATHER
 			  </a>
-			  <a id="bbcRSS" class="green item" onclick=loginCheck('bbc')>
+			  <a class="rss green item" onclick=loginCheck('bbc')>
 				<i class="user icon"></i>BBC
 			  </a>
-			  <a id="espnRSS" class="red item" onclick=loginCheck('espn')>
+			  <a class="rss red item" onclick=loginCheck('espn')>
 				<i class="flag icon"></i>ESPN
 			  </a>
 			  <div class ="disabled item middle aligned content" id="loggedInLast">please login</div>
-			  <a class="black item attached right">
-				  Login
+			  <a id="logButton" class="black item attached right" onclick=logOut()>
+				  Log Out
 			  </a>
 			</div>
 		</div>
@@ -84,6 +84,7 @@
 		<!--login-->
 		<div class="container">
 			<form class="ui form segment fluid" id="loginForm" method="POST">
+			  <h3> Login Here </h3>
 			  <div class="field">
 				<input name="uname" type="text" placeholder="username">
 			  </div>
@@ -110,16 +111,35 @@
 
 // menu update
 $(document).ready(function(){
-    $('.ui .item').on('click', function() {
-        $('.ui .item').removeClass('active');
+    $('.rss').on('click', function() {
+        $('.rss').removeClass('active');
         $(this).addClass('active');
     });
 });
 
-// replace login with logout and allow logging out
+// call for logged in cookie on successful login
 $(document).ready(function(){
-	
+	if (typeof(localStorage.getItem("currentUser")) === "string") {
+		lastVisit();
+	}
 });
+
+
+// replace login with logout and allow logging out
+// show first login if not logged in
+function logOut() {
+	if (typeof(localStorage.getItem("currentUser")) === "string") {
+		console.log('user logged in');
+		
+			localStorage.removeItem('currentUser');
+			clean()
+			document.getElementById('loggedInLast').innerHTML=('you have logged out');
+	}
+	else {
+		document.getElementById('loggedInLast').innerHTML=('you must login to be able to log out');
+
+	}
+};
 
 
 // login form and validation, send/retrieve from backend

@@ -5,8 +5,8 @@ Created by: Patrick Clinger :: http://www.freewebs.com/google_game/ */
 
 function lastVisit() {
   var lastvisit=new Object()
-  lastvisit.firstvisitmsg="This is your first visit to this page. Welcome!" //Change first visit message here
-  lastvisit.subsequentvisitmsg="Welcome back visitor! Your last visit was on <b>[displaydate]</b>" // Change subsequent visit message here
+  lastvisit.firstvisitmsg=" This is your first visit to this page. Welcome!" //Change first visit message here
+  lastvisit.subsequentvisitmsg= "Welcome back visitor! Your last visit was on <b>[displaydate]</b> " // Change subsequent visit message here
 
   lastvisit.getCookie=function(Name) { // get cookie value
     var re=new RegExp(Name+"=[^;]+", "i"); // construct RE to search for target name/value pair
@@ -35,12 +35,12 @@ function login(name, pw) {
 	// if returning user
 	var storedUserInfo = localStorage.getItem('users');
 	if (storedUserInfo === null ) {
-		console.log('null stored info');
+		console.log('nothing stored for users');
 		var newUserStr = "{" + name + ": {" + pw + "," + "{} } }"
-		console.log(JSON.stringify(newUserStr));
+		//console.log(JSON.stringify(newUserStr));
 		//localStorage.setItem('users', newUserStr)
 		localStorage.setItem('currentUser', name);
-		console.log(JSON.parse(JSON.stringify(newUserStr)));
+		//console.log(JSON.parse(JSON.stringify(newUserStr)));
 	}
 	else {
 		console.log('else if');
@@ -50,19 +50,21 @@ function login(name, pw) {
 	// last visit
 	console.log(name);
 	console.log(pw);
-	
+
 }
 
 
 function loginCheck (divID) {
 	console.log(divID);
-	$('#weatherRSS, #bbcRSS, #espnRSS').on('click', function() {
+	$('.ui .item').removeClass('active');
+        $(this).addClass('active');
+	$('.rss').one('click', function() { // BUG -- this check makes the function get called n+1 times per click
 		// not logged in
 		if (localStorage.getItem('currentUser') === null ) {
-			//console.log('login check on menu'); //TODO -- find out why this is being called 3+ times per click
-			// call login dropdown to allow logging in
+			document.getElementById('loggedInLast').innerHTML=('you must login to be able to view feeds');
 		}
 		else { // logged in
+			lastVisit();
 			console.log('else')
 			if (divID == 'weather' ) {
 				getRSS("http://rss.weather.com/rss/national/rss_nwf_rss.xml?cm_ven=NWF&cm_cat=rss&par=NWF_rss");
@@ -73,8 +75,6 @@ function loginCheck (divID) {
 			else if (divID == 'espn' ) {
 				getRSS("http://espn.go.com/espn/rss/news");
 			}
-			console.log('innerhtml');
-			lastVisit();
 		}
 		});
 	};
