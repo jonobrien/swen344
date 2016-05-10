@@ -1,0 +1,35 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>SpinnerMaster</title>
+
+	<style>body{margin:0;padding:0;background:#d7dbef;}.mittens{position:absolute;left:50%;transform:translate(-50%,0);height:100%;text-align:center;}.player{position:fixed;left:auto;right:auto;bottom:0;width:100%;}.timer{position:absolute;margin-left:30px;right:30px;top:30px;font-size:48pt;font-family:monospace;font-weight:800;color:white;background:linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.6));border-radius:10px;padding:20px;}.credits{position:absolute;bottom:0;left:auto;right:auto;margin-left:20px;margin-bottom:10px;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;}</style>
+</head>
+<body>
+	<div class="contrainer">
+	<img class="mittens" src="spinner_master_8000.gif">
+	<div class="timer">You have been loyal for <span id="time">0</span> seconds</div>
+	</div>
+	<audio loop="" class="player" autoplay="">
+	<source src="sickspins.ogg" type="audio/ogg">
+	</audio>
+	<div class="credits">Shamelessly ripped off from <a href="http://tr-8r.com">TR-8R</a> by Az, with absolutely no regrets. <br/>
+	Then ripped off from <a href="http://vect.me/spinning.html">This guy</a> Mittani version from <a href="http://spinmaster.me"> spinmaster</a>
+	</div>
+</body>
+</html>
+
+
+<script language="javascript" type="text/javascript">
+    if (!Date.now) {
+		Date.now = function() { return new Date().getTime(); }
+    }
+    var now = Date.now(),
+	fn = function() {
+	    document.getElementById("time").innerHTML = Math.floor((Date.now() - now) / 1000);
+	};
+    setInterval(fn, 100);
+</script>
+	
